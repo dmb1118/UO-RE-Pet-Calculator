@@ -1,6 +1,6 @@
 #==========================================#
 #                                          #
-#       Kovar's Intensity Calculator       #
+#       Kovars Intensity Calculator        #
 #             Updated: 8/11/24             #
 #       Uses UO-CAH Intensity Values       #
 #                                          #
@@ -1008,8 +1008,8 @@ def GetPetInfo():
     targ = Target.PromptTarget()
     pet = Mobiles.FindBySerial(targ)
     id = convert_to_hex(pet.MobileID)
-    color = convert_to_hex(pet.Color)
-    print(color, "", convert_to_hex(color))
+    color_id = convert_to_hex(int(pet.Color))
+    print(color_id)
     Mobiles.WaitForProps(pet, 5000)
     Gumps.ResetGump()
     Player.UseSkill('Animal Lore')
