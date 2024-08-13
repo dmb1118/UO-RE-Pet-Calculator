@@ -198,7 +198,7 @@ BASE_DATA = {
         },        
 #Crimson Drake - 2
     "0x058C": { 
-        "trained_intensity_range": {"min": 2711, "max": 3204},
+        "trained_intensity_range": {"min": 7214, "max": 7707},
         "half_on_tame": False,
         "abilities": ["Dragon Breath"],
         "slot_count": {"min" : 2, "max" : 5},
@@ -257,7 +257,7 @@ BASE_DATA = {
         "slot_count": {"min" : 2, "max" : 5},
         },            
 #Dread Spider     
-    "0x000B": { 
+    "dread spider": { 
         "trained_intensity_range": {"min": 8297, "max": 8723},
         "half_on_tame": False,
         "abilities": ["Magery", "Necromancy", "Poisoning"],
@@ -319,7 +319,7 @@ BASE_DATA = {
         "slot_count": {"min" : 2, "max" : 5},
         },    
 #Frost Spider
-    "Frost Spider": { 
+    "0x0014": { 
         "trained_intensity_range": {"min": 5317, "max": 5574},
         "half_on_tame": False,
         "abilities": None,
@@ -374,18 +374,18 @@ BASE_DATA = {
         "slot_count": {"min" : 1, "max" : 3},
         },      
 #Hell Hound
-    "0x0061": { 
-        "trained_intensity_range": {"min": 7084, "max": 7710},
+    "hell hound": { 
+        "trained_intensity_range": {"min": 5583, "max": 7710},
         "half_on_tame": False,
         "abilities": ["Necromancy", "Dragon Breath"],
-        "slot_count": {"min" : 1, "max" : 4},
+        "slot_count": {"min" : 2, "max" : 4},
         },       
 #Hellcat
-    "Hellcat": { 
-        "trained_intensity_range": {"min": 5342, "max": 5752},
+    "0x00C9": { 
+        "trained_intensity_range": {"min": 3841, "max": 5752},
         "half_on_tame": False,
         "abilities": ["Necromancy", "Dragon Breath"],
-        "slot_count": {"min" : 1, "max" : 3},
+        "slot_count": {"min" : 2, "max" : 3},
         },           
 #High Plains Boura
     "High Plains Boura": { 
@@ -494,7 +494,14 @@ BASE_DATA = {
         "half_on_tame": False,
         "abilities": ["Dragon Breath"],
         "slot_count": {"min" : 2, "max" : 5},
-        },      
+        },   
+#Predator Hellcat
+    "0x007F": { 
+        "trained_intensity_range": {"min": 5342, "max": 5752},
+        "half_on_tame": False,
+        "abilities": ["Necromancy", "Dragon Breath"],
+        "slot_count": {"min" : 2, "max" : 3},
+        },          
 #Raptor
     "Raptor": { 
         "trained_intensity_range": {"min": 7516, "max": 8118},
@@ -622,7 +629,7 @@ BASE_DATA = {
         "slot_count": {"min" : 3, "max" : 5},
         },            
 #White Wyrm
-    "0x00B4": { 
+    "white wyrm": { 
         "trained_intensity_range": {"min": 7261, "max": 8762},
         "half_on_tame": False,
         "abilities": ["Magery"],
@@ -1053,13 +1060,22 @@ def GetPetInfo():
             pet_id = 'nightmare'
     
     if (pet_id == '0x000C' or pet_id == '0x003B') and int(hits) < 500:
-        pet_id = 'dragon'        
+        pet_id = 'dragon'   
+        
+    if (pet_id == '0x000B' or pet_id == '0x0013') and int(hits) < 500:
+        pet_id = 'dread spider'
         
     if pet_id == '0x003C' or pet_id == '0x003D':
         if color_id == '0x0000':
             pet_id = 'drake'
         if color_id != '0x0000':
             pet_id = 'cold drake'
+    if (pet_id == '0x00B4' or pet_id == '0x0031'):
+        pet_id = 'white wyrm'            
+            
+    
+    if pet_id == '0x0061' or pet_id == '0x0062':
+       pet_id = 'hell hound'         
     #Wild / Tame and stats that change on tame
     
     half_stats = BASE_DATA[pet_id]["half_on_tame"]
@@ -1170,7 +1186,6 @@ def GetPetInfo():
         chivalry=chivalry,
         abilities=abilities_list
     )
-    
     
     
     pet_intensity = my_pet.calculate_intensity(pet_id, skills_dict) + (1501 * (max_slot - base_slot))
