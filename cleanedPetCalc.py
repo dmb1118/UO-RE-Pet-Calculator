@@ -1,7 +1,7 @@
 #==========================================#
 #                                          #
 #       Kovars Intensity Calculator        #
-#             Updated: 8/11/24             #
+#             Updated: 8/13/24             #
 #       Uses UO-CAH Intensity Values       #
 #                                          #
 #                                          #
@@ -74,12 +74,6 @@ cliloc_abilities_dict = {
     3002048: "Paralyze",
     1150005: "Rage",
 }
-
-# Magic skills that can be trained
-skill_names = [
-    "healing", "poisoning", "magery", "necromancy", "mysticism", "spellweaving",
-    "discordance", "bushido", "ninjitsu", "chivalry"
-]
 
 abilities_dict = {
     "Angry Fire": 100,
@@ -388,7 +382,7 @@ BASE_DATA = {
         "slot_count": {"min" : 1, "max" : 3},
         },      
 #Hell Hound
-    "Hell Hound": { 
+    "0x0061": { 
         "spawn_intensity_range": {"min": 2581, "max": 3207},
         "half_on_tame": False,
         "abilities": ["Necromancy", "Dragon Breath"],
@@ -565,7 +559,7 @@ BASE_DATA = {
         "slot_count": {"min" : 3, "max" : 5},
         },    
 #Serpentine Dragon
-    "Serpentine Dragon": { 
+    "0x0067": { 
         "spawn_intensity_range": {"min": 4027, "max": 4254},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Dragon Breath", "Paralyze"],
@@ -815,14 +809,41 @@ class Pet:
             Misc.SendMessage(f"Abilities: None", 5)
 
     def halve_tame_stats(self):
-        if isinstance(self.half_tame_stats, list) and self.pet_type == 'wild':
-            for stat in self.half_tame_stats:
-                if hasattr(self, stat):
-                    original_value = getattr(self, stat)
-                    halved_value = original_value // 2
-                    setattr(self, stat, halved_value)
+        if self.half_tame_stats:  # This checks if half_tame_stats is not None, not an empty list, and not False
+            if self.pet_type == 'wild':
+                for stat in self.half_tame_stats:
+                    if hasattr(self, stat):
+                        original_value = getattr(self, stat)
+                        #Misc.SendMessage(("Original ", stat, ": ", original_value), 9)
+                        halved_value = original_value // 2
+                        #Misc.SendMessage(("Halved ", stat, ": ", halved_value), 9)
+                        setattr(self, stat, halved_value)
+                        
+    def apply_skill_caps(self, skills_dict, pet_id):
+        if self.pet_type == 'wild' and "wild_ability_caps" in BASE_DATA[pet_id]:
+            for skill_name in BASE_DATA[pet_id]["wild_ability_caps"]:
+         
+                # Check if the skill exists in the skills_dict
+                if skill_name in skills_dict:
+                    attr_name = skills_dict[skill_name]
+                    
+                    wild_cap = BASE_DATA[pet_id]["wild_ability_caps"][skill_name]
+                    tame_cap = BASE_DATA[pet_id]["tamed_ability_caps"][skill_name]
+                    difference = wild_cap - tame_cap
+                    
+                    # Get the current value of the skill attribute
+                    current_value = getattr(self, attr_name, None)
+                    
+                    # Calculate the capped value
+                    capped_value = max(100.0, float(current_value) - difference)
+                    
+                    # Set the new capped value to the corresponding attribute
+                    setattr(self, attr_name, capped_value)
 
-    def calculate_intensity(self, id):
+                 
+    def calculate_intensity(self, pet_id, skills_dict):
+        if self.half_tame_stats:
+            self.halve_tame_stats()
         self.hp_regen = self.hp_regen
         self.stam_regen = self.stam_regen
         self.mana_regen = self.mana_regen
@@ -832,7 +853,6 @@ class Pet:
         self.magery = self.magery
         self.eval_int = self.eval_int
         self.poisoning = self.poisoning
-        self.halve_tame_stats()
         
         base_intensity = 0
         
@@ -881,24 +901,8 @@ class Pet:
         max_dmg_value = 3.3333334 * self.max_dmg
         base_intensity += max_dmg_value
         
-        if self.pet_type == 'wild' and "wild_ability_caps" in BASE_DATA[id]:
-            for skill in BASE_DATA[id]["wild_ability_caps"]:
-                wild_cap = BASE_DATA[id]["wild_ability_caps"][skill]
-                tame_cap = BASE_DATA[id]["tamed_ability_caps"][skill]
-                if skill == "Wrestling":
-                    self.wrestling = max(100, 100 + (wild_cap - tame_cap))
-                if skill == "Tactics":
-                    self.tactics = max(100, 100 + (wild_cap - tame_cap))
-                if skill == "Resisting Spells":
-                    self.spell_resist = max(100, 100 + (wild_cap - tame_cap))
-                if skill == "Magery":
-                    self.magery = max(100, 100 + (wild_cap - tame_cap))
-                if skill == "Evaluating Intelligence":
-                    self.eval_int = max(100, 100 + (wild_cap - tame_cap))
-                if skill == "Poisoning":
-                    self.poisoning = max(100, 100 + (wild_cap - tame_cap))
-                if skill == "Bushido":
-                    self.bushido = max(100, 100 + (wild_cap - tame_cap))
+        self.apply_skill_caps(skills_dict, pet_id)
+
         
         if self.wrestling is not None and self.wrestling > 100.0:
             wrestling_value = 10 * (self.wrestling - 100.0)
@@ -1007,7 +1011,7 @@ def GetPetInfo():
     Misc.SendMessage('Target the creature you wish to appraise', 90)
     targ = Target.PromptTarget()
     pet = Mobiles.FindBySerial(targ)
-    id = convert_to_hex(pet.MobileID)
+    pet_id = convert_to_hex(pet.MobileID)
     color_id = convert_to_hex(int(pet.Color))
     print(color_id)
     Mobiles.WaitForProps(pet, 5000)
@@ -1079,56 +1083,33 @@ def GetPetInfo():
     #Creatures that share a mobile ID, differentiate with stats #0x00F3
     pet_type = 'wild' if getNotoriety(pet) > 2 and getNotoriety(pet) < 6 else 'tame'
     if pet_type == 'wild':
-        if id == '0x000C' and int(hits) < 500: #Brown Dragon
-            id = '0x000C2'
-        if id == '0x003B' and int(hits) < 500: #Red Dragon
-            id = "0x003B2"
-        if id == '0x00F3' and int(hits) < 900: #Lesser Hiryu
-            id = "0x00F32"
+        if pet_id == '0x000C' and int(hits) < 500: #Brown Dragon
+            pet_id = '0x000C2'
+        if pet_id == '0x003B' and int(hits) < 500: #Red Dragon
+            pet_id = "0x003B2"
+        if pet_id == '0x00F3' and int(hits) < 900: #Lesser Hiryu
+            pet_id = "0x00F32"
     if pet_type == 'tame':
-        if id == '0x000C' and int(hits) < 500: #Brown Dragon
-            id = '0x000C2'
-        if id == '0x003B' and int(hits) < 500: #Red Dragon
+        if pet_id == '0x000C' and int(hits) < 500: #Brown Dragon
+            pet_id = '0x000C2'
+        if pet_id == '0x003B' and int(hits) < 500: #Red Dragon
             id = "0x003B2"    
-        if id == '0x00F3' and int(hits) < 450: #Lesser Hiryu
-            id = "0x00F32"
+        if pet_id == '0x00F3' and int(hits) < 450: #Lesser Hiryu
+            pet_id = "0x00F32"
     #Wild / Tame and stats that change on tame
     
-    half_stats = BASE_DATA[id]["half_on_tame"]
+    half_stats = BASE_DATA[pet_id]["half_on_tame"]
     
     #Slot Counts
     slot_nums = clean_list[43][0].split(' => ')
-    min_slot = BASE_DATA[id]["slot_count"]["min"]
+    min_slot = BASE_DATA[pet_id]["slot_count"]["min"]
     base_slot = int(slot_nums[0][0])
-    max_slot = BASE_DATA[id]["slot_count"]["max"]
-    
-    skills_dict = {
-        "wrestling": wrestling,
-        "tactics": tactics,
-        "spell_resist": spell_resist,
-        "anatomy": anatomy,
-        "healing": healing,
-        "poisoning": poisoning,
-        "detect_hidden": detect_hidden,
-        "hiding": hiding,
-        "parry": parry,
-        "magery": magery,
-        "eval_int": eval_int,
-        "meditation": meditation,
-        "necromancy": necromancy,
-        "spirit_speak": spirit_speak,
-        "mysticism": mysticism,
-        "focus": focus,
-        "spellweaving": spellweaving,
-        "discordance": discordance,
-        "bushido": bushido,
-        "ninjitsu": ninjitsu,
-        "chivalry": chivalry
-    }
+    max_slot = BASE_DATA[pet_id]["slot_count"]["max"]
+  
     
     #Intensity Info
-    min_value = int(BASE_DATA[id]["spawn_intensity_range"]["min"])
-    max_value = int(BASE_DATA[id]["spawn_intensity_range"]["max"])
+    min_value = int(BASE_DATA[pet_id]["spawn_intensity_range"]["min"])
+    max_value = int(BASE_DATA[pet_id]["spawn_intensity_range"]["max"])
     print(min_value, max_value, base_slot, max_slot)
     
     if min_slot < max_slot:
@@ -1137,15 +1118,49 @@ def GetPetInfo():
     #Abilities
     abilities_list = find_abilities(cliloc_abilities_dict)
     
+    skills_dict = {
+        "Wrestling": "wrestling",
+        "Tactics": "tactics",
+        "Spell_resist": "spell_resist",
+        "Anatomy": "anatomy",
+        "Healing": "healing",
+        "Poisoning": "poisoning",
+        "Detect_hidden": "detect_hidden",
+        "Hiding": "hiding",
+        "Parry": "parry",
+        "Magery": "magery",
+        "Evaluating Intelligence": "eval_int",
+        "Meditation": "meditation",
+        "Necromancy": "necromancy",
+        "Spirit_speak": "spirit_speak",
+        "Mysticism": "mysticism",
+        "Focus": "focus",
+        "Spellweaving": "spellweaving",
+        "Discordance": "discordance",
+        "Bushido": "bushido",
+        "Ninjitsu": "ninjitsu",
+        "Chivalry": "chivalry"
+    }
     
+    # Magic skills that can be trained
+    skill_names = [
+        "Healing", "Poisoning", "Magery", "Necromancy", "Mysticism", "Spellweaving",
+        "Discordance", "Bushido", "Ninjitsu", "Chivalry"
+    ]
+        
+    # Iterate over the list of skill names
     for skill_name in skill_names:
-        # Get the value of the corresponding skill
-        skill_value = skills_dict[skill_name]
-    
-        # Check if the skill value is greater than 0
+        # Get the attribute name from skills_dict
+        attr_name = skills_dict[skill_name]
+
+        # Get the value of the corresponding skill using the attribute name
+        skill_value = locals()[attr_name]
+
+        # Check if the skill value is equal to 0
         if skill_value == 0:
+            # If the skill name (capitalized) is in the abilities list, remove it
             if skill_name.capitalize() in abilities_list:
-                skill_to_pop = abilities_list.index(str(skill_name.capitalize()))
+                skill_to_pop = abilities_list.index(skill_name.capitalize())
                 abilities_list.pop(skill_to_pop)
                 
     # Create Pet object
@@ -1193,8 +1208,11 @@ def GetPetInfo():
         chivalry=chivalry,
         abilities=abilities_list
     )
+    
+    
+    
+    pet_intensity = my_pet.calculate_intensity(pet_id, skills_dict) + (1501 * (max_slot - base_slot))
     my_pet.print_stats()
-    pet_intensity = my_pet.calculate_intensity(id) + (1501 * (max_slot - base_slot))
     percentage = calculate_percentage(pet_intensity, min_value, max_value)
     Player.HeadMessage(5,("{} Pet Intensity: Min: {:.1f} / Actual: {:.1f} / Max: {:.1f}".format(my_pet.name, min_value, pet_intensity, max_value)))
     Player.HeadMessage(5,("Intensity Percent: {:.2f}%".format(percentage)))
