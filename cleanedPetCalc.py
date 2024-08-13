@@ -142,84 +142,84 @@ abilities_dict = {
 BASE_DATA = {
 #Bake Kitsune
     "0x00F6": { 
-        "spawn_intensity_range": {"min": 4226, "max": 4885},
+        "trained_intensity_range": {"min": 7228, "max": 7887},
         "half_on_tame": False,
         "abilities": ["Magery", "Rage"],
         "slot_count": {"min" : 3, "max" : 5},
         },
 #Bane Dragon
-    "0x031A": { 
-        "spawn_intensity_range": {"min": 5583, "max": 6338},
+    "bane dragon": { 
+        "trained_intensity_range": {"min": 5583, "max": 6338},
         "half_on_tame": False,
         "abilities": ["Magery", "Poisoning"],
         "slot_count": {"min" : 3, "max" : 5},
         },   
 #Blood Fox
     "Blood Fox": { 
-        "spawn_intensity_range": {"min": 2576, "max": 2899},
+        "trained_intensity_range": {"min": 2705, "max": 4206},
         "half_on_tame": False,
         "abilities": ["Grasping Claw", "Bleed"],
         "slot_count": {"min" : 2, "max" : 3},
         },    
 #Bull - Smooth
     "0x00E8": { 
-        "spawn_intensity_range": {"min": 572, "max": 771},
+        "trained_intensity_range": {"min": 5075, "max": 5274},
         "half_on_tame": False,
         "abilities": None,
         "slot_count": {"min" : 1, "max" : 4}
         },      
 #Bull - Pattern
     "0x00E9": { 
-        "spawn_intensity_range": {"min": 572, "max": 771},
+        "trained_intensity_range": {"min": 5075, "max": 5274},
         "half_on_tame": False,
         "abilities": None,
         "slot_count": {"min" : 1, "max" : 4}
         },          
 #Coconut Crab
     "Coconut Crab": { 
-        "spawn_intensity_range": {"min": 2486, "max": 2636},
+        "trained_intensity_range": {"min": 5488, "max": 5638},
         "half_on_tame": False,
         "abilities": None,
         "slot_count": {"min" : 1, "max" : 3},
         },
 #Cold Drake
     "cold drake": { 
-        "spawn_intensity_range": {"min": 4480, "max": 5390},
+        "trained_intensity_range": {"min": 7482, "max": 8392},
         "half_on_tame": False,
         "abilities": ["Dragon Breath"],
         "slot_count": {"min" : 3, "max" : 5},
         },        
 #Crimson Drake - 1
     "0x058B": { 
-        "spawn_intensity_range": {"min": 2711, "max": 3204},
+        "trained_intensity_range": {"min": 7214, "max": 7707},
         "half_on_tame": False,
         "abilities": ["Dragon Breath"],
         "slot_count": {"min" : 2, "max" : 5},
         },        
 #Crimson Drake - 2
     "0x058C": { 
-        "spawn_intensity_range": {"min": 2711, "max": 3204},
+        "trained_intensity_range": {"min": 2711, "max": 3204},
         "half_on_tame": False,
         "abilities": ["Dragon Breath"],
         "slot_count": {"min" : 2, "max" : 5},
         },        
 #Cu Sidhe
     "0x0115": { 
-        "spawn_intensity_range": {"min": 4624, "max": 5285},
+        "trained_intensity_range": {"min": 7626, "max": 8263},
         "half_on_tame": ["hits","stamina","strength","dexterity"],
         "abilities": ["Healing", "Bleed"],
         "slot_count": {"min" : 3, "max" : 5},
         },               
 #Deathwatch Beetle
     "0x00F2": { 
-        "spawn_intensity_range": {"min": 1354, "max": 1712},
+        "trained_intensity_range": {"min": 5857, "max": 6215},
         "half_on_tame": False,
         "abilities": ["Crushing Blow", "Poison Spit"],
         "slot_count": {"min" : 1, "max" : 4},
         }, 
 #Dimetrosaur
     "0x0505": { 
-        "spawn_intensity_range": {"min": 1354, "max": 1712},
+        "trained_intensity_range": {"min": 7724, "max": 8548},
         "half_on_tame": ["hits", "hits", "hits", "stamina", "strength", "dexterity"], #Hits 1/8 on tame
         "abilities": ["Poisoning", "Dismount", "Mortal Strike", "Poison Breath"],
         "wild_ability_caps": {"Wrestling": 130, "Tactics": 120, "Resisting Spells": 140},
@@ -228,21 +228,21 @@ BASE_DATA = {
         },      
 #Dire Wolf
     "0x0017": { 
-        "spawn_intensity_range": {"min": 2220, "max": 2498},
+        "trained_intensity_range": {"min": 6723, "max": 7001},
         "half_on_tame": False,
         "abilities": ["Necromancy"],
         "slot_count": {"min" : 1, "max" : 4},
         },               
 #Dragon
     "dragon": { 
-        "spawn_intensity_range": {"min": 6599, "max": 6936},
+        "trained_intensity_range": {"min": 8100, "max": 8437},
         "half_on_tame": False,
         "abilities": ["Magery", "Dragon Breath"],
         "slot_count": {"min" : 4, "max" : 5},
         },          
 #Dragon Wolf
     "0x02CF": { 
-        "spawn_intensity_range": {"min": 5517, "max": 5760},
+        "trained_intensity_range": {"min": 7261, "max": 8762},
         "half_on_tame": False,
         "abilities": ["Dragon Breath"],
         "wild_ability_caps": {"Resisting Spells": 140},
@@ -251,35 +251,42 @@ BASE_DATA = {
         },   
 #Drake
     "drake": { 
-        "spawn_intensity_range": {"min": 2820, "max": 3144},
+        "trained_intensity_range": {"min": 7323, "max": 7647},
         "half_on_tame": False,
         "abilities": ["Dragon Breath"],
         "slot_count": {"min" : 2, "max" : 5},
         },            
 #Dread Spider     
     "0x000B": { 
-        "spawn_intensity_range": {"min": 5295, "max": 5721},
+        "trained_intensity_range": {"min": 8297, "max": 8723},
         "half_on_tame": False,
         "abilities": ["Magery", "Necromancy", "Poisoning"],
         "slot_count": {"min" : 3, "max" : 5},
-        },          
+        },   
+#Dread Warhorse
+    "dread Warhorse": { 
+        "trained_intensity_range": {"min": 8597, "max": 9340},
+        "half_on_tame": False,
+        "abilities": ["Magery", "Dragon Breath"],
+        "slot_count": {"min" : 2, "max" : 5},
+        },        
 #Eowmu
     "Eowmu": { 
-        "spawn_intensity_range": {"min": 2514, "max": 2666},
+        "trained_intensity_range": {"min": 5516, "max": 5668},
         "half_on_tame": False,
         "abilities": None,
         "slot_count": {"min" : 1, "max" : 3},
         },      
 #Fire Beetle
     "0x00A9": { 
-        "spawn_intensity_range": {"min": 1890, "max": 1905},
+        "trained_intensity_range": {"min": 7894, "max": 7909},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": None,
         "slot_count": {"min" : 1, "max" : 5},
         },    
 #Fire Steed
     "0x00BE": { 
-        "spawn_intensity_range": {"min": 2870, "max": 3170},
+        "trained_intensity_range": {"min": 7373, "max": 7673},
         "half_on_tame": False,
         "abilities": ["Dragon Breath"],
         "wild_ability_caps": {"Resisting Spells": 120},
@@ -288,7 +295,7 @@ BASE_DATA = {
         },        
 #Frost Dragon 
     "Frost Dragon": { 
-        "spawn_intensity_range": {"min": 7128, "max": 9337},
+        "trained_intensity_range": {"min": 7128, "max": 9337},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Dragon Breath", "Magery", "Bleed"],
         "wild_ability_caps": {"Wrestling": 145, "Tactics": 140, "Resisting Spells": 140, "Magery": 140},
@@ -297,14 +304,14 @@ BASE_DATA = {
         },      
 #Frost Drake
     "Frost Drake": { 
-        "spawn_intensity_range": {"min": 3051, "max": 3398},
+        "trained_intensity_range": {"min": 7554, "max": 7901},
         "half_on_tame": False,
         "abilities": ["Cold Wind"],
         "slot_count": {"min" : 2, "max" : 5},
         },      
 #Frost Mite
     "0x0590": { 
-        "spawn_intensity_range": {"min": 3909, "max": 4254},
+        "trained_intensity_range": {"min": 7256, "max": 8757},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Cold Wind"],
         "wild_ability_caps": {"Wrestling": 120},
@@ -313,14 +320,14 @@ BASE_DATA = {
         },    
 #Frost Spider
     "Frost Spider": { 
-        "spawn_intensity_range": {"min": 814, "max": 1071},
+        "trained_intensity_range": {"min": 5317, "max": 5574},
         "half_on_tame": False,
         "abilities": None,
         "slot_count": {"min" : 1, "max" : 4},
         },       
 #Gallusaurus
     "0x0506": { 
-        "spawn_intensity_range": {"min": 5676, "max": 6212},
+        "trained_intensity_range": {"min": 7177, "max": 7713},
         "half_on_tame": False,
         "abilities": ["Bushido", "Ninjitsu", "Grasping Claw", "Block"],
         "wild_ability_caps": {"Bushido": 125},
@@ -329,21 +336,21 @@ BASE_DATA = {
         },          
 #Gaman
     "0x00F8": { 
-        "spawn_intensity_range": {"min": 1495, "max": 2001},
+        "trained_intensity_range": {"min": 5998, "max": 6504},
         "half_on_tame": False,
         "abilities": None,
         "slot_count": {"min" : 1, "max" : 4},
         },               
 #Giant Beetle
     "0x0317": { 
-        "spawn_intensity_range": {"min": 1680, "max": 1830},
+        "trained_intensity_range": {"min": 7684, "max": 7834},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": None,
         "slot_count": {"min" : 1, "max" : 5},
         },   
 #Greater Dragon - Brown
     "0x000C": { 
-        "spawn_intensity_range": {"min": 6139, "max": 7938},
+        "trained_intensity_range": {"min": 7149, "max": 9439},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Magery", "Dragon Breath", "Bleed"],
         "wild_ability_caps": {"Wrestling": 145, "Tactics": 140, "Resisting Spells": 140, "Magery": 140},
@@ -352,7 +359,7 @@ BASE_DATA = {
         },      
 #Greater Dragon - Red
     "0x003B": { 
-        "spawn_intensity_range": {"min": 6139, "max": 7149},
+        "trained_intensity_range": {"min": 7149, "max": 9439},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Magery", "Dragon Breath", "Bleed"],
         "wild_ability_caps": {"Wrestling": 145, "Tactics": 140, "Resisting Spells": 140, "Magery": 140},
@@ -361,35 +368,35 @@ BASE_DATA = {
         },       
 #Grizzled Mare
     "Grizzled Mare": { 
-        "spawn_intensity_range": {"min": 2718, "max": 2853},
+        "trained_intensity_range": {"min": 5720, "max": 5855},
         "half_on_tame": False,
         "abilities": ["Necromancy"],
         "slot_count": {"min" : 1, "max" : 3},
         },      
 #Hell Hound
     "0x0061": { 
-        "spawn_intensity_range": {"min": 2581, "max": 3207},
+        "trained_intensity_range": {"min": 7084, "max": 7710},
         "half_on_tame": False,
         "abilities": ["Necromancy", "Dragon Breath"],
         "slot_count": {"min" : 1, "max" : 4},
         },       
 #Hellcat
     "Hellcat": { 
-        "spawn_intensity_range": {"min": 2340, "max": 2750},
+        "trained_intensity_range": {"min": 5342, "max": 5752},
         "half_on_tame": False,
         "abilities": ["Necromancy", "Dragon Breath"],
         "slot_count": {"min" : 1, "max" : 3},
         },           
 #High Plains Boura
     "High Plains Boura": { 
-        "spawn_intensity_range": {"min": 3701, "max": 4255},
+        "trained_intensity_range": {"min": 7257, "max": 8758},
         "half_on_tame": False,
         "abilities": ["Tail Swipe"],
         "slot_count": {"min" : 2, "max" : 5},
         },           
 #Hiryu
-    "0x00F3": { 
-        "spawn_intensity_range": {"min": 4340, "max": 5272},
+    "hiryu": { 
+        "trained_intensity_range": {"min": 7342, "max": 8274},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Grasping Claw", "Dismount"],
         "wild_ability_caps": {"Wrestling": 120},
@@ -398,14 +405,14 @@ BASE_DATA = {
         },     
 #Hungry Coconut Crab
     "Hungry Coconut Crab": { 
-        "spawn_intensity_range": {"min": 133, "max": 163},
+        "trained_intensity_range": {"min": 1634, "max": 1664},
         "half_on_tame": False,
         "abilities": None,
         "slot_count": {"min" : 1, "max" : 2},
         },           
 #Iron Beetle
     "0x02CA": { 
-        "spawn_intensity_range": {"min": 2929, "max": 3458},
+        "trained_intensity_range": {"min": 7432, "max": 7961},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": None,
         "wild_ability_caps": {"Resisting Spells": 130},
@@ -413,29 +420,29 @@ BASE_DATA = {
         "slot_count": {"min" : 2, "max" : 5},
         },      
 #Kirin
-    "Kirin": { 
-        "spawn_intensity_range": {"min": 3774, "max": 4117},
+    "0x0084": { 
+        "trained_intensity_range": {"min": 8277, "max": 8620},
         "half_on_tame": False,
         "abilities": ["Magery"],
         "slot_count": {"min" : 2, "max" : 5},
         },           
 #Lasher
     "Lasher": { 
-        "spawn_intensity_range": {"min": 2514, "max": 2666},
+        "trained_intensity_range": {"min": 5516, "max": 5668},
         "half_on_tame": False,
         "abilities": None,
         "slot_count": {"min" : 1, "max" : 3},
         },              
 #Lava Lizard
     "0x00CE": { 
-        "spawn_intensity_range": {"min": 1169, "max": 1434},
+        "trained_intensity_range": {"min": 5672, "max": 5937},
         "half_on_tame": False,
         "abilities": ["Dragon Breath"],
         "slot_count": {"min" : 1, "max" : 4},
         },   
 #Lesser Hiryu
     "lesser hiryu": { 
-        "spawn_intensity_range": {"min": 2070, "max": 2705},
+        "trained_intensity_range": {"min": 7208, "max": 8709},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Grasping Claw", "Dismount"],
         "wild_ability_caps": {"Wrestling": 120},
@@ -444,51 +451,37 @@ BASE_DATA = {
         },
 #Lion
     "0x0592": { 
-        "spawn_intensity_range": {"min": 2706, "max": 2974},
+        "trained_intensity_range": {"min": 7209, "max": 7477},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Piercing", "Armor Ignore", "Bleed", "Paralyze"],
         "slot_count": {"min" : 2, "max" : 5},
         },             
 #Najasaurus
     "0x0509": { 
-        "spawn_intensity_range": {"min": 3847, "max": 4300},
+        "trained_intensity_range": {"min": 7302, "max": 8803},
         "half_on_tame": False,
         "abilities": ["Poisoning"],
         "wild_ability_caps": {"Resisting Spells": 190},
         "tamed_ability_caps": {"Resisting Spells": 171},
         "slot_count": {"min" : 2, "max" : 5},
         },    
-#Nightmare Shiny Short Mane
-    "0x0074": { 
-        "spawn_intensity_range": {"min": 3951, "max": 4254},
+#Nightmare
+    "nightmare": { 
+        "trained_intensity_range": {"min": 7256, "max": 8757},
         "half_on_tame": False,
         "abilities": ["Magery", "Dragon Breath"],
         "slot_count": {"min" : 2, "max" : 5},
         },
-#Nightmare Light Short Mane
-    "0x00B2": { 
-        "spawn_intensity_range": {"min": 3951, "max": 4254},
-        "half_on_tame": False,
-        "abilities": ["Magery", "Dragon Breath"],
-        "slot_count": {"min" : 2, "max" : 5},
-        },        
-#Nightmare Dark (Also uses Dread Warhorse Model)
-    "0x00B3": { 
-        "spawn_intensity_range": {"min": 3951, "max": 4254},
-        "half_on_tame": False,
-        "abilities": ["Magery", "Dragon Breath"],
-        "slot_count": {"min" : 2, "max" : 5},
-        },        
 #Ossein Ram
     "Ossein Ram": { 
-        "spawn_intensity_range": {"min": 53607, "max": 4272},
+        "trained_intensity_range": {"min": 8110, "max": 8775},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Necromancy", "Battle Defense", "Life Leech", "Disarm", "Paralyze"],
         "slot_count": {"min" : 2, "max" : 5},
         },        
 #Phoenix
     "0x0340": { 
-        "spawn_intensity_range": {"min": 5397, "max": 5760},
+        "trained_intensity_range": {"min": 7261, "max": 8762},
         "half_on_tame": False,
         "abilities": ["Magery"],
         "wild_ability_caps": {"Resisting Spells": 134},
@@ -497,21 +490,21 @@ BASE_DATA = {
         }, 
 #Platinum Drake
     "0x0589": { 
-        "spawn_intensity_range": {"min": 2711, "max": 3204},
+        "trained_intensity_range": {"min": 7214, "max": 7707},
         "half_on_tame": False,
         "abilities": ["Dragon Breath"],
         "slot_count": {"min" : 2, "max" : 5},
         },      
 #Raptor
     "Raptor": { 
-        "spawn_intensity_range": {"min": 3013, "max": 3615},
+        "trained_intensity_range": {"min": 7516, "max": 8118},
         "half_on_tame": False,
         "abilities": None,
         "slot_count": {"min" : 2, "max" : 5},
         },      
 #Reptalon
-    "Reptalon": { 
-        "spawn_intensity_range": {"min": 4027, "max": 4254},
+    "0x0114": { 
+        "trained_intensity_range": {"min": 7256, "max": 8757},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Dragon Breath", "Paralyze"],
         "wild_ability_caps": {"Wrestling": 119},
@@ -520,7 +513,7 @@ BASE_DATA = {
         },            
 #Rune Beetle
     "0x00F4": { 
-        "spawn_intensity_range": {"min": 5111, "max": 5760},
+        "trained_intensity_range": {"min": 7261, "max": 8762},
         "half_on_tame": False,
         "abilities": ["Magery", "Poisoning", "Rune Corruption", "Bleed"],
         "wild_ability_caps": {"Evaluating Intelligence": 125, "Poisoning": 140},
@@ -529,14 +522,14 @@ BASE_DATA = {
         },
 #Sabre-Toothed Tiger
     "0x0588": { 
-        "spawn_intensity_range": {"min": 3370, "max": 3726},
+        "trained_intensity_range": {"min": 7873, "max": 8229},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Slashing", "Armor Ignore", "Disarm", "Nerve Strike", "Healing"],
         "slot_count": {"min" : 2, "max" : 5},
         },            
 #Saurosaurus
     "0x050B": { 
-        "spawn_intensity_range": {"min": 4905, "max": 5599},
+        "trained_intensity_range": {"min": 7907, "max": 8601},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Life Leech", "Tail Swipe", "Concussion Blow"],
         "wild_ability_caps": {"Wrestling": 130, "Tactics": 120},
@@ -545,7 +538,7 @@ BASE_DATA = {
         },    
 #Serpentine Dragon
     "0x0067": { 
-        "spawn_intensity_range": {"min": 4027, "max": 4254},
+        "trained_intensity_range": {"min": 7915, "max": 8219},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Dragon Breath", "Paralyze"],
         "wild_ability_caps": {"Wrestling": 119},
@@ -554,7 +547,7 @@ BASE_DATA = {
         },     
 #Shadow Wyrm
     "0x006A": { 
-        "spawn_intensity_range": {"min": 8806, "max": 9652},
+        "trained_intensity_range": {"min": 8806, "max": 9652},
         "half_on_tame": False,
         "abilities": ["Magery", "Necromancy", "Dragon Breath"],
         "wild_ability_caps": {"Resisting Spells": 130},
@@ -563,14 +556,14 @@ BASE_DATA = {
         },     
 #Skeletal Cat
     "Skeletal Cat": { 
-        "spawn_intensity_range": {"min": 4014, "max": 4166},
+        "trained_intensity_range": {"min": 7016, "max": 7168},
         "half_on_tame": False,
         "abilities": ["Necromancy"],
         "slot_count": {"min" : 2, "max" : 4},
         },                    
 #Skree
     "0x02DD": {
-        "spawn_intensity_range": {"min": 5298, "max": 5760},
+        "trained_intensity_range": {"min": 7261, "max": 8762},
         "half_on_tame": False,
         "abilities": ["Magery", "Mysticism"],
         "wild_ability_caps": {"Wrestling": 120, "Magery": 114},
@@ -579,28 +572,28 @@ BASE_DATA = {
         },    
 #Stone Slith
     "Stone Slith": { 
-        "spawn_intensity_range": {"min": 2053, "max": 2511},
+        "trained_intensity_range": {"min": 8057, "max": 8515},
         "half_on_tame": False,
         "abilities": ["Grasping Claw", "Tail Swipe", "Bleed"],
         "slot_count": {"min" : 1, "max" : 5},
         },   
 #Stygian Drake
     "Stygian Drake": { 
-        "spawn_intensity_range": {"min": 6576, "max": 6914},
+        "trained_intensity_range": {"min": 8077, "max": 8415},
         "half_on_tame": False,
         "abilities": ["Magery", "Magery Mastery"],
         "slot_count": {"min" : 4, "max" : 5},
         },     
 #Triceratops
     "0x0587": { 
-        "spawn_intensity_range": {"min": 4548, "max": 5508},
+        "trained_intensity_range": {"min": 7550, "max": 8510},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Piercing", "Armor Ignore", "Bleed", "Paralyze", "Healing"],
         "slot_count": {"min" : 3, "max" : 5},
         },            
 #Triton
     "0x02D0": { 
-        "spawn_intensity_range": {"min": 3556, "max": 4552},
+        "trained_intensity_range": {"min": 7554, "max": 9055},
         "half_on_tame": False,
         "abilities": ["Healing"],
         "wild_ability_caps": {"Wrestling": 130, "Resisting Spells": 190},
@@ -609,56 +602,56 @@ BASE_DATA = {
         },        
 #Tsuki Wolf
     "0x00FA": { 
-        "spawn_intensity_range": {"min": 4850, "max": 5532},
+        "trained_intensity_range": {"min": 7852, "max": 8534},
         "half_on_tame": False,
         "abilities": ["Necromancy", "Rage"],
         "slot_count": {"min" : 3, "max" : 5},
         },
 #Unicorn
-    "Unicorn": { 
-        "spawn_intensity_range": {"min": 3834, "max": 4222},
+    "0x007A": { 
+        "trained_intensity_range": {"min": 8337, "max": 8725},
         "half_on_tame": False,
         "abilities": ["Magery"],
         "slot_count": {"min" : 2, "max" : 5},
         },            
 #Vollem
     "Vollem": { 
-        "spawn_intensity_range": {"min": 4768, "max": 5040},
+        "trained_intensity_range": {"min": 7770, "max": 8042},
         "half_on_tame": False,
         "abilities": ["Magery", "Dragon Breath"],
         "slot_count": {"min" : 3, "max" : 5},
         },            
 #White Wyrm
     "0x00B4": { 
-        "spawn_intensity_range": {"min": 5097, "max": 5760},
+        "trained_intensity_range": {"min": 7261, "max": 8762},
         "half_on_tame": False,
         "abilities": ["Magery"],
         "slot_count": {"min" : 3, "max" : 5}
         },      
 #Wild Tiger
     "Wild Tiger": { 
-        "spawn_intensity_range": {"min": 3511, "max": 4295},
+        "trained_intensity_range": {"min": 8014, "max": 8798},
         "half_on_tame": False,
         "abilities": ["Grasping Claw", "Bleed"],
         "slot_count": {"min" : 2, "max" : 5},
         },  
 #Wildfire Ostard
     "Wildfire Ostard": { 
-        "spawn_intensity_range": {"min": 5425, "max": 5425},
+        "trained_intensity_range": {"min": 8427, "max": 8427},
         "half_on_tame": False,
         "abilities": ["Magery", "Poisoning"],
         "slot_count": {"min" : 3, "max" : 5},
         },            
 #Windrunner
     "Windrunner": { 
-        "spawn_intensity_range": {"min": 4014, "max": 4166},
+        "trained_intensity_range": {"min": 7016, "max": 7168},
         "half_on_tame": False,
         "abilities": ["Necromancy"],
         "slot_count": {"min" : 2, "max" : 4},
         },    
 #Wolf Spider
     "0x02E0": { 
-        "spawn_intensity_range": {"min": 2225, "max": 2647}, # Estimated
+        "trained_intensity_range": {"min": 5227, "max": 5649}, # Estimated
         "half_on_tame": False,
         "abilities": ["Poisoning"],
         "slot_count": {"min" : 1, "max" : 3},
@@ -684,19 +677,6 @@ def find_abilities(cliloc_abilities_dict):
             abilities.append(cliloc_abilities_dict[key])  # Add the found ability to the list
             
     return abilities  # Return the list of found abilities   
-    
-    
-def adjust_intensity_if_slots_greater(base_slot, max_slot, min_slot, min_value, max_value):
-    
-    if max_slot > base_slot or max_slot > min_slot:
-        num = max_slot - min_slot
-
-        while num > 0:
-            min_value += 1501
-            max_value += 1501  
-            num -= 1
-        return min_value, max_value
-    
     
 class Pet:
     def __init__(self, name, hits, stamina, mana, strength, dexterity, intelligence,
@@ -876,7 +856,6 @@ class Pet:
         
         max_dmg_value = 3.3333334 * self.max_dmg
         base_intensity += max_dmg_value
-        
         self.apply_skill_caps(skills_dict, pet_id)
 
         
@@ -955,7 +934,8 @@ class Pet:
         if self.poisoning is not None and self.poisoning > 100.0:
             poisoning_value = 1 * (self.poisoning - 100.0)
             base_intensity += poisoning_value
-        
+            
+      
         for ability in self.abilities:
             if ability in abilities_dict:
                 ability_intensity = abilities_dict[ability]
@@ -1065,8 +1045,13 @@ def GetPetInfo():
     if pet_type == 'tame': 
         if pet_id == '0x00F3' and int(hits) < 450: #Lesser Hiryu
             pet_id = "lesser hiryu"
-            
-
+    
+    if (pet_id == '0x00B1' or pet_id == '0x00B2' or pet_id == '0x00B3' or pet_id == '0x0074'):
+        if color_id != '0x0000':
+            pet_id = 'dread warhorse'
+        else:
+            pet_id = 'nightmare'
+    
     if (pet_id == '0x000C' or pet_id == '0x003B') and int(hits) < 500:
         pet_id = 'dragon'        
         
@@ -1087,12 +1072,10 @@ def GetPetInfo():
   
     
     #Intensity Info
-    min_value = int(BASE_DATA[pet_id]["spawn_intensity_range"]["min"])
-    max_value = int(BASE_DATA[pet_id]["spawn_intensity_range"]["max"])
+    min_value = int(BASE_DATA[pet_id]["trained_intensity_range"]["min"])
+    max_value = int(BASE_DATA[pet_id]["trained_intensity_range"]["max"])
     #print(min_value, max_value, base_slot, max_slot)
-    
-    if min_slot < max_slot:
-        min_value, max_value = adjust_intensity_if_slots_greater(base_slot, max_slot, min_slot, min_value, max_value)
+
     
     #Abilities
     abilities_list = find_abilities(cliloc_abilities_dict)
@@ -1193,8 +1176,8 @@ def GetPetInfo():
     pet_intensity = my_pet.calculate_intensity(pet_id, skills_dict) + (1501 * (max_slot - base_slot))
     my_pet.print_stats()
     percentage = calculate_percentage(pet_intensity, min_value, max_value)
-    Player.HeadMessage(5,("Trained Intensity: {:.1f} / {:.1f}".format(pet_intensity, max_value)))
-    Player.HeadMessage(5,("Intensity Percent: {:.2f}%".format(percentage)))
+    Player.HeadMessage(5,("Trained Intensity: {:.1f} / {:.1f} / {:.1f}".format(min_value, pet_intensity, max_value)))
+    Player.HeadMessage(5,("Percent: {:.2f}%".format(percentage)))
     
     return my_pet
 
