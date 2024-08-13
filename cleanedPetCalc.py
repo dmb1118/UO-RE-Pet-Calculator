@@ -1,7 +1,7 @@
 #==========================================#
 #                                          #
 #       Kovars Intensity Calculator        #
-#             Updated: 8/11/24             #
+#             Updated: 8/13/24             #
 #       Uses UO-CAH Intensity Values       #
 #                                          #
 #                                          #
@@ -182,20 +182,13 @@ BASE_DATA = {
         "abilities": None,
         "slot_count": {"min" : 1, "max" : 3},
         },
-#Cold Drake Rough
-    "0x003C": { 
+#Cold Drake
+    "cold drake": { 
         "spawn_intensity_range": {"min": 4480, "max": 5390},
         "half_on_tame": False,
         "abilities": ["Dragon Breath"],
         "slot_count": {"min" : 3, "max" : 5},
         },        
-#Cold Drake Smooth
-    "0x003D": { 
-        "spawn_intensity_range": {"min": 4480, "max": 5390},
-        "half_on_tame": False,
-        "abilities": ["Dragon Breath"],
-        "slot_count": {"min" : 3, "max" : 5},
-        },
 #Crimson Drake - 1
     "0x058B": { 
         "spawn_intensity_range": {"min": 2711, "max": 3204},
@@ -239,16 +232,9 @@ BASE_DATA = {
         "half_on_tame": False,
         "abilities": ["Necromancy"],
         "slot_count": {"min" : 1, "max" : 4},
-        },        
-#Dragon - Brown
-    "0x000C2": { 
-        "spawn_intensity_range": {"min": 6599, "max": 6936},
-        "half_on_tame": False,
-        "abilities": ["Magery", "Dragon Breath"],
-        "slot_count": {"min" : 4, "max" : 5},
-        },            
-#Dragon - Red
-    "0x003B2": { 
+        },               
+#Dragon
+    "dragon": { 
         "spawn_intensity_range": {"min": 6599, "max": 6936},
         "half_on_tame": False,
         "abilities": ["Magery", "Dragon Breath"],
@@ -263,20 +249,13 @@ BASE_DATA = {
         "tamed_ability_caps": {"Resisting Spells": 126},
         "slot_count": {"min" : 3, "max" : 5},
         },   
-#Drake - Brown
-    "Drake": { 
+#Drake
+    "drake": { 
         "spawn_intensity_range": {"min": 2820, "max": 3144},
         "half_on_tame": False,
         "abilities": ["Dragon Breath"],
         "slot_count": {"min" : 2, "max" : 5},
-        },   
-#Drake - Red
-    "Drake": { 
-        "spawn_intensity_range": {"min": 2820, "max": 3144},
-        "half_on_tame": False,
-        "abilities": ["Dragon Breath"],
-        "slot_count": {"min" : 2, "max" : 5},
-        },           
+        },            
 #Dread Spider     
     "0x000B": { 
         "spawn_intensity_range": {"min": 5295, "max": 5721},
@@ -455,7 +434,7 @@ BASE_DATA = {
         "slot_count": {"min" : 1, "max" : 4},
         },   
 #Lesser Hiryu
-    "0x00F32": { 
+    "lesser hiryu": { 
         "spawn_intensity_range": {"min": 2070, "max": 2705},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Grasping Claw", "Dismount"],
@@ -1081,19 +1060,21 @@ def GetPetInfo():
     #Creatures that share a mobile ID, differentiate with stats #0x00F3
     pet_type = 'wild' if getNotoriety(pet) > 2 and getNotoriety(pet) < 6 else 'tame'
     if pet_type == 'wild':
-        if pet_id == '0x000C' and int(hits) < 500: #Brown Dragon
-            pet_id = '0x000C2'
-        if pet_id == '0x003B' and int(hits) < 500: #Red Dragon
-            pet_id = "0x003B2"
         if pet_id == '0x00F3' and int(hits) < 900: #Lesser Hiryu
-            pet_id = "0x00F32"
-    if pet_type == 'tame':
-        if pet_id == '0x000C' and int(hits) < 500: #Brown Dragon
-            pet_id = '0x000C2'
-        if pet_id == '0x003B' and int(hits) < 500: #Red Dragon
-            id = "0x003B2"    
+            pet_id = "lesser hiryu"
+    if pet_type == 'tame': 
         if pet_id == '0x00F3' and int(hits) < 450: #Lesser Hiryu
-            pet_id = "0x00F32"
+            pet_id = "lesser hiryu"
+            
+
+    if (pet_id == '0x000C' or pet_id == '0x003B') and int(hits) < 500:
+        pet_id = 'dragon'        
+        
+    if pet_id == '0x003C' or pet_id == '0x003D':
+        if color_id == '0x0000':
+            pet_id = 'drake'
+        if color_id != '0x0000':
+            pet_id = 'cold drake'
     #Wild / Tame and stats that change on tame
     
     half_stats = BASE_DATA[pet_id]["half_on_tame"]
@@ -1108,7 +1089,7 @@ def GetPetInfo():
     #Intensity Info
     min_value = int(BASE_DATA[pet_id]["spawn_intensity_range"]["min"])
     max_value = int(BASE_DATA[pet_id]["spawn_intensity_range"]["max"])
-    print(min_value, max_value, base_slot, max_slot)
+    #print(min_value, max_value, base_slot, max_slot)
     
     if min_slot < max_slot:
         min_value, max_value = adjust_intensity_if_slots_greater(base_slot, max_slot, min_slot, min_value, max_value)
