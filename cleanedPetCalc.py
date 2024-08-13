@@ -1,7 +1,7 @@
 #==========================================#
 #                                          #
 #       Kovars Intensity Calculator        #
-#             Updated: 8/13/24             #
+#             Updated: 8/11/24             #
 #       Uses UO-CAH Intensity Values       #
 #                                          #
 #                                          #
@@ -196,8 +196,14 @@ BASE_DATA = {
         "abilities": ["Dragon Breath"],
         "slot_count": {"min" : 3, "max" : 5},
         },
-
-#Crimson Drake
+#Crimson Drake - 1
+    "0x058B": { 
+        "spawn_intensity_range": {"min": 2711, "max": 3204},
+        "half_on_tame": False,
+        "abilities": ["Dragon Breath"],
+        "slot_count": {"min" : 2, "max" : 5},
+        },        
+#Crimson Drake - 2
     "0x058C": { 
         "spawn_intensity_range": {"min": 2711, "max": 3204},
         "half_on_tame": False,
@@ -358,7 +364,7 @@ BASE_DATA = {
         },   
 #Greater Dragon - Brown
     "0x000C": { 
-        "spawn_intensity_range": {"min": 6139, "max": 7149},
+        "spawn_intensity_range": {"min": 6139, "max": 7938},
         "half_on_tame": ["hits", "stamina", "strength", "dexterity"],
         "abilities": ["Magery", "Dragon Breath", "Bleed"],
         "wild_ability_caps": {"Wrestling": 145, "Tactics": 140, "Resisting Spells": 140, "Magery": 140},
@@ -511,7 +517,7 @@ BASE_DATA = {
         "slot_count": {"min" : 3, "max" : 5},
         }, 
 #Platinum Drake
-    "0x058A": { 
+    "0x0589": { 
         "spawn_intensity_range": {"min": 2711, "max": 3204},
         "half_on_tame": False,
         "abilities": ["Dragon Breath"],
@@ -826,18 +832,9 @@ class Pet:
                 # Check if the skill exists in the skills_dict
                 if skill_name in skills_dict:
                     attr_name = skills_dict[skill_name]
-                    
                     wild_cap = BASE_DATA[pet_id]["wild_ability_caps"][skill_name]
-                    tame_cap = BASE_DATA[pet_id]["tamed_ability_caps"][skill_name]
-                    difference = wild_cap - tame_cap
-                    
-                    # Get the current value of the skill attribute
                     current_value = getattr(self, attr_name, None)
-                    
-                    # Calculate the capped value
-                    capped_value = max(100.0, float(current_value) - difference)
-                    
-                    # Set the new capped value to the corresponding attribute
+                    capped_value = max(100.0, (current_value * 0.9))
                     setattr(self, attr_name, capped_value)
 
                  
@@ -876,7 +873,7 @@ class Pet:
         
         physical_value = 3 * self.physical
         base_intensity += physical_value
-        
+         
         fire_value = 3 * self.fire
         base_intensity += fire_value
         
@@ -984,7 +981,8 @@ class Pet:
             if ability in abilities_dict:
                 ability_intensity = abilities_dict[ability]
                 base_intensity += ability_intensity
-                    
+                #Misc.SendMessage((ability, ": ", ability_intensity),25)
+                  
         return base_intensity
 
 
@@ -1013,7 +1011,7 @@ def GetPetInfo():
     pet = Mobiles.FindBySerial(targ)
     pet_id = convert_to_hex(pet.MobileID)
     color_id = convert_to_hex(int(pet.Color))
-    print(color_id)
+    #print(color_id)
     Mobiles.WaitForProps(pet, 5000)
     Gumps.ResetGump()
     Player.UseSkill('Animal Lore')
@@ -1214,7 +1212,7 @@ def GetPetInfo():
     pet_intensity = my_pet.calculate_intensity(pet_id, skills_dict) + (1501 * (max_slot - base_slot))
     my_pet.print_stats()
     percentage = calculate_percentage(pet_intensity, min_value, max_value)
-    Player.HeadMessage(5,("{} Pet Intensity: Min: {:.1f} / Actual: {:.1f} / Max: {:.1f}".format(my_pet.name, min_value, pet_intensity, max_value)))
+    Player.HeadMessage(5,("Trained Intensity: {:.1f} / {:.1f}".format(pet_intensity, max_value)))
     Player.HeadMessage(5,("Intensity Percent: {:.2f}%".format(percentage)))
     
     return my_pet
