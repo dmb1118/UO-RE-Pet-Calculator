@@ -1,7 +1,7 @@
 #==========================================#
 #                                          #
 #       Kovars Intensity Calculator        #
-#             Updated: 8/13/24             #
+#             Updated: 8/19/24             #
 #       Uses UO-CAH Intensity Values       #
 #                                          #
 #                                          #
