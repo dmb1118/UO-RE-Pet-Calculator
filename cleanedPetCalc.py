@@ -101,7 +101,7 @@ abilities_dict = {
     "Explosive Goo": 100,
     "Feint": 600,
     "Force of Nature": 100,
-    "Frenzied Whirlwind": 600,
+    "Frenzied Whirlwind": 100,
     "Grasping Claw": 100,
     "Healing": 100,
     "Inferno": 100,
@@ -148,8 +148,8 @@ BASE_DATA = {
         "slot_count": {"min" : 3, "max" : 5},
         },
 #Bane Dragon
-    "bane dragon": { 
-        "trained_intensity_range": {"min": 5583, "max": 6338},
+    "0x031A": { 
+        "trained_intensity_range": {"min": 8585, "max": 9340},
         "half_on_tame": False,
         "abilities": ["Magery", "Poisoning"],
         "slot_count": {"min" : 3, "max" : 5},
@@ -264,7 +264,7 @@ BASE_DATA = {
         "slot_count": {"min" : 3, "max" : 5},
         },   
 #Dread Warhorse
-    "dread Warhorse": { 
+    "dread warhorse": { 
         "trained_intensity_range": {"min": 8597, "max": 9340},
         "half_on_tame": False,
         "abilities": ["Magery", "Dragon Breath"],
@@ -662,7 +662,14 @@ BASE_DATA = {
         "half_on_tame": False,
         "abilities": ["Poisoning"],
         "slot_count": {"min" : 1, "max" : 3},
-        },          
+        },  
+#Default - Pet type not in database
+    "default": { 
+        "trained_intensity_range": {"min": 0, "max": 0},
+        "half_on_tame": False,
+        "abilities": None,
+        "slot_count": {"min" : 1, "max" : 5},
+        },         
 }
 
 def convert_to_hex(n):
@@ -1053,9 +1060,11 @@ def GetPetInfo():
         if pet_id == '0x00F3' and int(hits) < 450: #Lesser Hiryu
             pet_id = "lesser hiryu"
     
-    if (pet_id == '0x00B1' or pet_id == '0x00B2' or pet_id == '0x00B3' or pet_id == '0x0074'):
-        if color_id != '0x0000':
-            pet_id = 'dread warhorse'
+    print(pet_id, " ", color_id)
+    if pet_id == '0x00B1' or pet_id == '0x00B2' or pet_id == '0x00B3' or pet_id == '0x0074':
+        print(color_id)
+        if color_id == '0x00B3':
+           pet_id  = 'dread warhorse'
         else:
             pet_id = 'nightmare'
     
@@ -1076,6 +1085,11 @@ def GetPetInfo():
     
     if pet_id == '0x0061' or pet_id == '0x0062':
        pet_id = 'hell hound'         
+       
+       
+    if pet_id not in BASE_DATA:
+        pet_id = 'default'
+        
     #Wild / Tame and stats that change on tame
     
     half_stats = BASE_DATA[pet_id]["half_on_tame"]
