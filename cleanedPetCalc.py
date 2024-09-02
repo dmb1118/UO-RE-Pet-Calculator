@@ -1,7 +1,7 @@
 #==========================================#
 #                                          #
 #       Kovars Intensity Calculator        #
-#             Updated: 8/19/24             #
+#             Updated: 9/1/24             #
 #       Uses UO-CAH Intensity Values       #
 #                                          #
 #                                          #
@@ -85,7 +85,7 @@ abilities_dict = {
     "Battle Defense": 1,
     "Bladeweave": 100,
     "Bleed": 100,
-    "Block": 1100,
+    "Block": 600,
     "Bushido": 500,
     "Chivalry": 500,
     "Conductive Blast": 100,
@@ -99,7 +99,7 @@ abilities_dict = {
     "Essence of Disease": 100,
     "Essence of Earth": 100,
     "Explosive Goo": 100,
-    "Feint": 600,
+    "Feint": 100,
     "Force of Nature": 100,
     "Frenzied Whirlwind": 100,
     "Grasping Claw": 100,
@@ -385,7 +385,7 @@ BASE_DATA = {
         "trained_intensity_range": {"min": 3841, "max": 5752},
         "half_on_tame": False,
         "abilities": ["Necromancy", "Dragon Breath"],
-        "slot_count": {"min" : 2, "max" : 3},
+        "slot_count": {"min" : 1, "max" : 3},
         },           
 #High Plains Boura
     "High Plains Boura": { 
@@ -744,7 +744,7 @@ class Pet:
 
     def print_stats(self):
         Misc.SendMessage(f"Pet Name: {self.name}", 5)
-        Misc.SendMessage(f"Type: {self.pet_type}", 5)
+        #Misc.SendMessage(f"Type: {self.pet_type}", 5)
         Misc.SendMessage(f"Hits: {self.hits}", 5)
         Misc.SendMessage(f"Stamina: {self.stamina}", 5)
         Misc.SendMessage(f"Mana: {self.mana}", 5)
@@ -793,9 +793,7 @@ class Pet:
                 for stat in self.half_tame_stats:
                     if hasattr(self, stat):
                         original_value = getattr(self, stat)
-                        #Misc.SendMessage(("Original ", stat, ": ", original_value), 9)
                         halved_value = original_value // 2
-                        #Misc.SendMessage(("Halved ", stat, ": ", halved_value), 9)
                         setattr(self, stat, halved_value)
                         
     def apply_skill_caps(self, skills_dict, pet_id):
@@ -954,7 +952,6 @@ class Pet:
             if ability in abilities_dict:
                 ability_intensity = abilities_dict[ability]
                 base_intensity += ability_intensity
-                #Misc.SendMessage((ability, ": ", ability_intensity),25)
                   
         return base_intensity
 
@@ -984,7 +981,7 @@ def GetPetInfo():
     pet = Mobiles.FindBySerial(targ)
     pet_id = convert_to_hex(pet.MobileID)
     color_id = convert_to_hex(int(pet.Color))
-    #print(color_id)
+    #Misc.SendMessage(("Hue: ", str(pet.Color)), 2) 
     Mobiles.WaitForProps(pet, 5000)
     Gumps.ResetGump()
     Player.UseSkill('Animal Lore')
@@ -993,13 +990,13 @@ def GetPetInfo():
     Gumps.WaitForGump(0x1db, 10000)
     if Gumps.CurrentGump() != 0x1db: return
     Misc.Pause(300)
-    unclean_list = Gumps.GetLineList(0x1db)
-    n = 0
-    if '%' in unclean_list[1]:
-        del unclean_list[1]
-    gumpList = list(unclean_list)
-    clean_list = [Clean(i) for i in gumpList]
-    n = 0
+    unclean_list = Gumps.LastGumpRawText()
+    
+    remove_nonetype = [item for item in unclean_list if item is not None]
+    clean_list = [Clean(i) for i in remove_nonetype]
+
+    if len(clean_list[1]) <= 1:
+        del clean_list[1]
 
     #Name
     pet_name = clean_list[0][0]
@@ -1007,7 +1004,7 @@ def GetPetInfo():
     #Damage
     dmg_range = clean_list[21][0].split('-')
     pet_max_dmg = dmg_range[1]
-    
+   
     #Base Stats
     hits = clean_list[1][1] if clean_list[1][0] != '---' else 0
     stamina = clean_list[2][1] if clean_list[2][0] != '---' else 0
@@ -1056,13 +1053,14 @@ def GetPetInfo():
     if pet_type == 'wild':
         if pet_id == '0x00F3' and int(hits) < 900: #Lesser Hiryu
             pet_id = "lesser hiryu"
+        elif pet_id == '0x00F3' and int(hits) >= 900:
+            pet_id = "hiryu"
     if pet_type == 'tame': 
         if pet_id == '0x00F3' and int(hits) < 450: #Lesser Hiryu
             pet_id = "lesser hiryu"
-    
-    print(pet_id, " ", color_id)
+        elif pet_id == '0x00F3' and int(hits) >= 450:
+            pet_id = "hiryu"
     if pet_id == '0x00B1' or pet_id == '0x00B2' or pet_id == '0x00B3' or pet_id == '0x0074':
-        print(color_id)
         if color_id == '0x00B3':
            pet_id  = 'dread warhorse'
         else:
@@ -1104,7 +1102,6 @@ def GetPetInfo():
     #Intensity Info
     min_value = int(BASE_DATA[pet_id]["trained_intensity_range"]["min"])
     max_value = int(BASE_DATA[pet_id]["trained_intensity_range"]["max"])
-    #print(min_value, max_value, base_slot, max_slot)
 
     
     #Abilities
