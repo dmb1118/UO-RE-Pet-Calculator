@@ -1,7 +1,7 @@
 #==========================================#
 #                                          #
 #       Kovars Intensity Calculator        #
-#             Updated: 9/1/24             #
+#             Updated: 8/19/24             #
 #       Uses UO-CAH Intensity Values       #
 #                                          #
 #                                          #
@@ -375,7 +375,7 @@ BASE_DATA = {
         },      
 #Hell Hound
     "hell hound": { 
-        "trained_intensity_range": {"min": 5583, "max": 7710},
+        "trained_intensity_range": {"min": 5583, "max": 6209},
         "half_on_tame": False,
         "abilities": ["Necromancy", "Dragon Breath"],
         "slot_count": {"min" : 2, "max" : 4},
@@ -677,7 +677,7 @@ def convert_to_hex(n):
     
 def find_abilities(cliloc_abilities_dict):
     # Get the raw data from Gump
-    raw_data = Gumps.LastGumpRawData()
+    raw_data = Gumps.LastGumpRawLayout()
     data = ""
     for item in raw_data:
         data.join(str(item))
@@ -990,10 +990,12 @@ def GetPetInfo():
     Gumps.WaitForGump(0x1db, 10000)
     if Gumps.CurrentGump() != 0x1db: return
     Misc.Pause(300)
-    unclean_list = Gumps.LastGumpRawText()
+    #unclean_list = Gumps.LastGumpRawText()
+    unclean_list = Gumps.GetLineList(0x1db, True)
+    print(unclean_list)
     
-    remove_nonetype = [item for item in unclean_list if item is not None]
-    clean_list = [Clean(i) for i in remove_nonetype]
+    #remove_nonetype = [item for item in unclean_list if item is not None]
+    clean_list = [Clean(i) for i in unclean_list]
 
     if len(clean_list[1]) <= 1:
         del clean_list[1]
